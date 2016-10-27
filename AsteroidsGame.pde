@@ -1,15 +1,63 @@
-//your variable declarations here
+SpaceShip bob = new SpaceShip();
+Star[] rob = new Star[400];
 public void setup() 
 {
-  //your code here
+  size(1200,650);
+  for(int i =0; i < rob.length; i++)
+  {
+    rob[i] = new Star();  
+  }
 }
 public void draw() 
 {
-  //your code here
+  background(0);
+  bob.show();
+  bob.move();
+  for(int i = 0; i < rob.length; i++)
+  {
+    rob[i].draw();
+  }
 }
-class SpaceShip //extends Floater  
+class SpaceShip extends Floater  
 {   
-    //your code here
+  public SpaceShip()
+  {
+      corners = 8;
+      xCorners = new int[corners];
+      yCorners = new int[corners];
+      xCorners[0] = 18;
+      yCorners[0] = 0;
+      xCorners[1] = 18;
+      yCorners[1] = -2;
+      xCorners[2] = 12;
+      yCorners[2] = -2;
+      xCorners[3] = -8;
+      yCorners[3] = -8;
+      xCorners[4] = -5;
+      yCorners[4] = 0;
+      xCorners[5] = -8;
+      yCorners[5] = 8;
+      xCorners[6] = 12;
+      yCorners[6] = 2;
+      xCorners[7] = 18;
+      yCorners[7] = 2;
+      myColor = 255;
+      myCenterX = 600;
+      myCenterY = 325;
+      myDirectionX = 0;
+      myDirectionY = 0;
+      myPointDirection = 0;
+  }
+  public void setX(int x){myCenterX = x;}
+  public int getX(){return (int)myCenterX;}   
+  public void setY(int y){myCenterY = y;}   
+  public int getY(){return (int)myCenterY;}   
+  public void setDirectionX(double x){myDirectionX = x;}   
+  public double getDirectionX(){return myDirectionX;}   
+  public void setDirectionY(double y){myDirectionY = y;}   
+  public double getDirectionY(){return myDirectionY;}   
+  public void setPointDirection(int degrees){myPointDirection = degrees;}   
+  public double getPointDirection(){return myPointDirection;} 
 }
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
 {   
@@ -45,7 +93,7 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
     //rotates the floater by a given number of degrees    
     myPointDirection+=nDegreesOfRotation;   
   }   
-  public void move ()   //move the floater in the current direction of travel
+  public void move()   //move the floater in the current direction of travel
   {      
     //change the x and y coordinates by myDirectionX and myDirectionY       
     myCenterX += myDirectionX;    
@@ -86,5 +134,50 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
     }   
     endShape(CLOSE);  
   }   
+}
+public void keyPressed()
+{
+  if(key == 'w')
+  {
+    bob.accelerate(0.25);
+  }
+  if(key == 's')
+  {
+    bob.accelerate(-0.25);
+  }
+  if(key == 'a')
+  {
+    bob.rotate(-5);
+  }
+  if(key == 'd')
+  {
+    bob.rotate(5);
+  }
+  if(key == 'h')
+  {
+    bob.setDirectionX(0);
+    bob.setDirectionY(0);
+    bob.setX((int)(Math.random()*1200));
+    bob.setY((int)(Math.random()*800));
+    bob.setPointDirection((int)(Math.random()*360));
+  }
 } 
+class Star 
+{
+  private int starX, starY;
+  public Star()
+  {
+    starX = (int)(Math.random()*1200);
+    starY = (int)(Math.random()*650);
+  }
+  public void draw()
+  {
+    noStroke();
+    fill(255,255,0);
+    ellipse(starX, starY, 4, 4);
+  }
+}
+// class Asteriod extends Floater
+// {
 
+// } 
