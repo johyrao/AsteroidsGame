@@ -177,7 +177,3 @@ class Star
     ellipse(starX, starY, 4, 4);
   }
 }
-// class Asteriod extends Floater
-// {
-
-// } 
