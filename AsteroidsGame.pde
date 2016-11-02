@@ -1,11 +1,16 @@
 SpaceShip bob = new SpaceShip();
 Star[] rob = new Star[400];
+Asteroid[] tom = new Asteroid[10];
 public void setup() 
 {
   size(1200,650);
   for(int i =0; i < rob.length; i++)
   {
     rob[i] = new Star();  
+  }
+  for(int i =0; i < tom.length; i++)
+  {
+    tom[i] = new Asteroid();  
   }
 }
 public void draw() 
@@ -17,36 +22,41 @@ public void draw()
   {
     rob[i].draw();
   }
+  for(int i = 0; i < tom.length; i++)
+  {
+    tom[i].show();
+    tom[i].move();
+  }
 }
 class SpaceShip extends Floater  
 {   
   public SpaceShip()
   {
-      corners = 8;
-      xCorners = new int[corners];
-      yCorners = new int[corners];
-      xCorners[0] = 18;
-      yCorners[0] = 0;
-      xCorners[1] = 18;
-      yCorners[1] = -2;
-      xCorners[2] = 12;
-      yCorners[2] = -2;
-      xCorners[3] = -8;
-      yCorners[3] = -8;
-      xCorners[4] = -5;
-      yCorners[4] = 0;
-      xCorners[5] = -8;
-      yCorners[5] = 8;
-      xCorners[6] = 12;
-      yCorners[6] = 2;
-      xCorners[7] = 18;
-      yCorners[7] = 2;
-      myColor = 255;
-      myCenterX = 600;
-      myCenterY = 325;
-      myDirectionX = 0;
-      myDirectionY = 0;
-      myPointDirection = 0;
+    corners = 8;
+    xCorners = new int[corners];
+    yCorners = new int[corners];
+    xCorners[0] = 18;
+    yCorners[0] = 0;
+    xCorners[1] = 18;
+    yCorners[1] = -2;
+    xCorners[2] = 12;
+    yCorners[2] = -2;
+    xCorners[3] = -8;
+    yCorners[3] = -8;
+    xCorners[4] = -5;
+    yCorners[4] = 0;
+    xCorners[5] = -8;
+    yCorners[5] = 8;
+    xCorners[6] = 12;
+    yCorners[6] = 2;
+    xCorners[7] = 18;
+    yCorners[7] = 2;
+    myColor = 255;
+    myCenterX = 600;
+    myCenterY = 325;
+    myDirectionX = 0;
+    myDirectionY = 0;
+    myPointDirection = 0;
   }
   public void setX(int x){myCenterX = x;}
   public int getX(){return (int)myCenterX;}   
@@ -175,5 +185,53 @@ class Star
     noStroke();
     fill(255,255,0);
     ellipse(starX, starY, 4, 4);
+  }
+}
+class Asteroid extends Floater
+{
+  private int rotspeed;
+  public Asteroid()
+  {
+    corners = 8;
+    xCorners = new int[corners];
+    yCorners = new int[corners];
+    xCorners[0] = 6;
+    yCorners[0] = 0;
+    xCorners[1] = 3;
+    yCorners[1] = 3;
+    xCorners[2] = 1;
+    yCorners[2] = 2;
+    xCorners[3] = -3;
+    yCorners[3] = 3;
+    xCorners[4] = -4;
+    yCorners[4] = 0;
+    xCorners[5] = -2;
+    yCorners[5] = -3;
+    xCorners[6] = 2;
+    yCorners[6] = -4;
+    xCorners[7] = 5;
+    yCorners[7] = -4;
+    myColor = color(255,100,100);
+    myCenterX = (int)(Math.random()*1200);
+    myCenterY = (int)(Math.random()*750);
+    myDirectionX = 0;
+    myDirectionY = 0;
+    myPointDirection = 0;
+    rotspeed = (int)(Math.random()*2)-1;
+  }
+  public void setX(int x){myCenterX = x;}
+  public int getX(){return (int)myCenterX;}   
+  public void setY(int y){myCenterY = y;}   
+  public int getY(){return (int)myCenterY;}   
+  public void setDirectionX(double x){myDirectionX = x;}   
+  public double getDirectionX(){return myDirectionX;}   
+  public void setDirectionY(double y){myDirectionY = y;}   
+  public double getDirectionY(){return myDirectionY;}   
+  public void setPointDirection(int degrees){myPointDirection = degrees;}   
+  public double getPointDirection(){return myPointDirection;}
+  public void move()
+  {
+    rotate(rotspeed);
+    super.move();
   }
 }
