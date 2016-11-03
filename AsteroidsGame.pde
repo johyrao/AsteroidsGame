@@ -1,6 +1,6 @@
 SpaceShip bob = new SpaceShip();
 Star[] rob = new Star[400];
-Asteroid[] tom = new Asteroid[10];
+Asteroid[] tom = new Asteroid[20];
 public void setup() 
 {
   size(1200,650);
@@ -211,11 +211,24 @@ class Asteroid extends Floater
     yCorners[6] = -4;
     xCorners[7] = 5;
     yCorners[7] = -4;
-    myColor = color(255,100,100);
+    for(int i =0; i < xCorners.length; i++)
+    {
+      xCorners[i] = xCorners[i]*3;
+    }
+    for(int i =0; i < yCorners.length; i++)
+    {
+      yCorners[i] = yCorners[i]*3;
+    }
+    myColor = color(124,104,91);
     myCenterX = (int)(Math.random()*1200);
     myCenterY = (int)(Math.random()*750);
-    myDirectionX = 0;
-    myDirectionY = 0;
+    myDirectionX = (int)(Math.random()*3-1.5);
+    myDirectionY = (int)(Math.random()*3-1.5);
+    if(myDirectionX == 0 && myDirectionY == 0)
+    {
+      myDirectionX += 1;
+      myDirectionY += 1;
+    }
     myPointDirection = 0;
     rotspeed = (int)(Math.random()*2)-1;
   }
