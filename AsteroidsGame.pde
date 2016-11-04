@@ -213,11 +213,11 @@ class Asteroid extends Floater
     yCorners[7] = -4;
     for(int i =0; i < xCorners.length; i++)
     {
-      xCorners[i] = xCorners[i]*3;
+      xCorners[i] = xCorners[i]*5;
     }
     for(int i =0; i < yCorners.length; i++)
     {
-      yCorners[i] = yCorners[i]*3;
+      yCorners[i] = yCorners[i]*5;
     }
     myColor = color(124,104,91);
     myCenterX = (int)(Math.random()*1200);
