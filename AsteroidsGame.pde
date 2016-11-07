@@ -1,6 +1,6 @@
 SpaceShip bob = new SpaceShip();
 Star[] rob = new Star[400];
-Asteroid[] tom = new Asteroid[20];
+ArrayList <Asteroid> theRocks = new ArrayList <Asteroid>();
 public void setup() 
 {
   size(1200,650);
@@ -8,9 +8,9 @@ public void setup()
   {
     rob[i] = new Star();  
   }
-  for(int i =0; i < tom.length; i++)
+  for(int i =0; i < 20; i++)
   {
-    tom[i] = new Asteroid();  
+    theRocks.add(new Asteroid()); 
   }
 }
 public void draw() 
@@ -22,10 +22,15 @@ public void draw()
   {
     rob[i].draw();
   }
-  for(int i = 0; i < tom.length; i++)
+  for(int i = 0; i < theRocks.size(); i++)
   {
-    tom[i].show();
-    tom[i].move();
+    theRocks.get(i).show();
+    theRocks.get(i).move();
+    float asd = dist(SpaceShip.getX, SpaceShip.getY, theRocks.get(i).getX, theRocks.get(i).getY);
+    if(asd < 20)
+    {
+      theRocks.remove(i);
+    }
   }
 }
 class SpaceShip extends Floater  
@@ -171,6 +176,10 @@ public void keyPressed()
     bob.setY((int)(Math.random()*800));
     bob.setPointDirection((int)(Math.random()*360));
   }
+}
+public void mousePressed()
+{
+
 } 
 class Star 
 {
