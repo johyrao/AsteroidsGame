@@ -26,8 +26,7 @@ public void draw()
   {
     theRocks.get(i).show();
     theRocks.get(i).move();
-    float asd = dist(SpaceShip.getX, SpaceShip.getY, theRocks.get(i).getX, theRocks.get(i).getY);
-    if(asd < 20)
+    if(dist(bob.getX(), bob.getY(), theRocks.get(i).getX(), theRocks.get(i).getY()) < 20)
     {
       theRocks.remove(i);
     }
