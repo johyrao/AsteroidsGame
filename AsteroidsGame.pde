@@ -1,6 +1,8 @@
 SpaceShip bob = new SpaceShip();
 Star[] rob = new Star[400];
+PFont myFont;
 ArrayList <Asteroid> theRocks = new ArrayList <Asteroid>();
+ArrayList <Bullets> boo = new ArrayList <Bullets>();
 public void setup() 
 {
   size(1200,650);
@@ -8,29 +10,52 @@ public void setup()
   {
     rob[i] = new Star();  
   }
-  for(int i =0; i < 20; i++)
+  for(int i =0; i < 30; i++)
   {
     theRocks.add(new Asteroid()); 
   }
+  myFont = createFont("Impact", 100);
 }
 public void draw() 
 {
-  background(0);
-  bob.show();
-  bob.move();
-  for(int i = 0; i < rob.length; i++)
+  if(theRocks.size() == 0)
   {
-    rob[i].draw();
+    background(0);
+    textAlign(CENTER, CENTER);
+    fill(255,255,0);
+    textFont(myFont);
+    text("The End", 600, 300);
+    
   }
-  for(int i = 0; i < theRocks.size(); i++)
+  else
   {
-    theRocks.get(i).show();
-    theRocks.get(i).move();
-    if(dist(bob.getX(), bob.getY(), theRocks.get(i).getX(), theRocks.get(i).getY()) < 20)
+    background(0);
+    for(int i = 0; i < rob.length; i++)
     {
-      theRocks.remove(i);
+      rob[i].draw();
     }
+    for(int i = 0; i < theRocks.size(); i++)
+    {
+      theRocks.get(i).show();
+      theRocks.get(i).move();
+      if(dist(bob.getX(), bob.getY(), theRocks.get(i).getX(), theRocks.get(i).getY()) < 20)
+      {
+        theRocks.remove(i);
+      }
+    }
+    for(int i = 0; i < boo.size(); i++)
+    {
+      boo.get(i).show();
+      boo.get(i).move();
+      // if(dist(boo.getX(), boo.getY(), theRocks.get(i).getX(), theRocks.get(i).getY()) < 20)
+      // {
+      //   boo.remove(i);
+      // }
+    }
+    bob.show();
+    bob.move();
   }
+
 }
 class SpaceShip extends Floater  
 {   
@@ -178,7 +203,10 @@ public void keyPressed()
 }
 public void mousePressed()
 {
-
+  for(int i =0; i < 30; i++)
+  {
+    boo.add(new Bullets()); 
+  }
 } 
 class Star 
 {
@@ -203,21 +231,21 @@ class Asteroid extends Floater
     corners = 8;
     xCorners = new int[corners];
     yCorners = new int[corners];
-    xCorners[0] = 6;
+    xCorners[0] = 10;
     yCorners[0] = 0;
-    xCorners[1] = 3;
+    xCorners[1] = 7;
     yCorners[1] = 3;
-    xCorners[2] = 1;
+    xCorners[2] = 5;
     yCorners[2] = 2;
-    xCorners[3] = -3;
+    xCorners[3] = 1;
     yCorners[3] = 3;
-    xCorners[4] = -4;
+    xCorners[4] = 0;
     yCorners[4] = 0;
-    xCorners[5] = -2;
+    xCorners[5] = 2;
     yCorners[5] = -3;
-    xCorners[6] = 2;
+    xCorners[6] = 6;
     yCorners[6] = -4;
-    xCorners[7] = 5;
+    xCorners[7] = 9;
     yCorners[7] = -4;
     for(int i =0; i < xCorners.length; i++)
     {
@@ -254,5 +282,35 @@ class Asteroid extends Floater
   {
     rotate(rotspeed);
     super.move();
+  }
+}
+class Bullets extends Floater
+{
+  public Bullets()
+  {
+    double dRadians =myPointDirection*(Math.PI/180);
+    myColor = 255;
+    myCenterX = bob.getX() + 10;
+    myCenterY = bob.getY();
+    myDirectionX = 5 * Math.cos(dRadians) + bob.getDirectionX();
+    myDirectionY = 5 * Math.sin(dRadians) + bob.getDirectionY();
+    myPointDirection = bob.getPointDirection();
+
+  }
+  public void setX(int x){myCenterX = x;}
+  public int getX(){return (int)myCenterX;}   
+  public void setY(int y){myCenterY = y;}   
+  public int getY(){return (int)myCenterY;}   
+  public void setDirectionX(double x){myDirectionX = x;}   
+  public double getDirectionX(){return myDirectionX;}   
+  public void setDirectionY(double y){myDirectionY = y;}   
+  public double getDirectionY(){return myDirectionY;}   
+  public void setPointDirection(int degrees){myPointDirection = degrees;}   
+  public double getPointDirection(){return myPointDirection;}
+  public void show()
+  {
+    noStroke();
+    fill(255,0,0);
+    ellipse((float)myCenterX, (float)myCenterY, 18,2);
   }
 }
