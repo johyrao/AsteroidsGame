@@ -47,7 +47,7 @@ public void draw()
     {
       boo.get(i).show();
       boo.get(i).move();
-      // if(dist(boo.getX(), boo.getY(), theRocks.get(i).getX(), theRocks.get(i).getY()) < 20)
+      // if(dist(boo.get(i).getX(), boo.get(i).getY(), theRocks.get(i).getX(), theRocks.get(i).getY()) < 20)
       // {
       //   boo.remove(i);
       // }
@@ -288,13 +288,29 @@ class Bullets extends Floater
 {
   public Bullets()
   {
-    double dRadians =myPointDirection*(Math.PI/180);
-    myColor = 255;
-    myCenterX = bob.getX() + 10;
+    corners = 6;
+    xCorners = new int[corners];
+    yCorners = new int[corners];
+    xCorners[0] = 12;
+    yCorners[0] = 0;
+    xCorners[1] = 11;
+    yCorners[1] = 1;
+    xCorners[2] = -3;
+    yCorners[2] = 1;
+    xCorners[3] = -4;
+    yCorners[3] = 0;
+    xCorners[4] = -3;
+    yCorners[4] = -1;
+    xCorners[5] = 11;
+    yCorners[5] = -1;
+    myPointDirection = bob.getPointDirection();
+    double dRadians = myPointDirection*(Math.PI/180);
+    myColor = color(255,0,0);
+    myCenterX = bob.getX();
     myCenterY = bob.getY();
     myDirectionX = 5 * Math.cos(dRadians) + bob.getDirectionX();
     myDirectionY = 5 * Math.sin(dRadians) + bob.getDirectionY();
-    myPointDirection = bob.getPointDirection();
+    
 
   }
   public void setX(int x){myCenterX = x;}
@@ -307,10 +323,10 @@ class Bullets extends Floater
   public double getDirectionY(){return myDirectionY;}   
   public void setPointDirection(int degrees){myPointDirection = degrees;}   
   public double getPointDirection(){return myPointDirection;}
-  public void show()
-  {
-    noStroke();
-    fill(255,0,0);
-    ellipse((float)myCenterX, (float)myCenterY, 18,2);
+  public void move()   //move the floater in the current direction of travel
+  {      
+    //change the x and y coordinates by myDirectionX and myDirectionY       
+    myCenterX += myDirectionX;    
+    myCenterY += myDirectionY;       
   }
 }
