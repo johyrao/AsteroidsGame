@@ -38,7 +38,7 @@ public void draw()
     {
       theRocks.get(i).show();
       theRocks.get(i).move();
-      if(dist(bob.getX(), bob.getY(), theRocks.get(i).getX(), theRocks.get(i).getY()) < 20)
+      if(dist(bob.getX(), bob.getY(), theRocks.get(i).getX(), theRocks.get(i).getY()) < 30)
       {
         theRocks.remove(i);
       }
@@ -310,8 +310,6 @@ class Bullets extends Floater
     myCenterY = bob.getY();
     myDirectionX = 5 * Math.cos(dRadians) + bob.getDirectionX();
     myDirectionY = 5 * Math.sin(dRadians) + bob.getDirectionY();
-    
-
   }
   public void setX(int x){myCenterX = x;}
   public int getX(){return (int)myCenterX;}   
