@@ -203,9 +203,13 @@ public void keyPressed()
 }
 public void mousePressed()
 {
-  for(int i =0; i < 30; i++)
+  for(int i = 0; i < 30; i++)
   {
-    boo.add(new Bullets()); 
+    boo.add(new Bullets());  
+    if(boo.get(i).getX() < 0 || boo.get(i).getY() < 0 || boo.get(i).getX() > 1200 || boo.get(i).getY() > 650)
+    {
+      boo.remove(i);
+    } 
   }
 } 
 class Star 
@@ -291,17 +295,17 @@ class Bullets extends Floater
     corners = 6;
     xCorners = new int[corners];
     yCorners = new int[corners];
-    xCorners[0] = 12;
+    xCorners[0] = 18;
     yCorners[0] = 0;
-    xCorners[1] = 11;
+    xCorners[1] = 17;
     yCorners[1] = 1;
-    xCorners[2] = -3;
+    xCorners[2] = 3;
     yCorners[2] = 1;
-    xCorners[3] = -4;
+    xCorners[3] = 2;
     yCorners[3] = 0;
-    xCorners[4] = -3;
+    xCorners[4] = 3;
     yCorners[4] = -1;
-    xCorners[5] = 11;
+    xCorners[5] = 17;
     yCorners[5] = -1;
     myPointDirection = bob.getPointDirection();
     double dRadians = myPointDirection*(Math.PI/180);
