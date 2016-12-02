@@ -3,6 +3,7 @@ Star[] rob = new Star[400];
 PFont myFont;
 ArrayList <Asteroid> theRocks = new ArrayList <Asteroid>();
 ArrayList <Bullets> boo = new ArrayList <Bullets>();
+boolean gameOver = false;
 public void setup() 
 {
   size(1200,650);
@@ -12,7 +13,7 @@ public void setup()
   }
   for(int i =0; i < 30; i++)
   {
-    theRocks.add(new Asteroid()); 
+    theRocks.add(new Asteroid());
   }
   myFont = createFont("Impact", 100);
 }
@@ -24,12 +25,19 @@ public void draw()
     textAlign(CENTER, CENTER);
     fill(255,255,0);
     textFont(myFont);
-    text("The End", 600, 300);
-    
+    text("You Win", 600, 300);
+  }
+  else if(gameOver == true)
+  {
+    background(0);
+    textAlign(CENTER, CENTER);
+    fill(255,255,0);
+    textFont(myFont);
+    text("You Lose", 600, 300);  
   }
   else
   {
-    background(0);
+    background(0);      
     for(int i = 0; i < rob.length; i++)
     {
       rob[i].draw();
@@ -38,24 +46,29 @@ public void draw()
     {
       theRocks.get(i).show();
       theRocks.get(i).move();
-      if(dist(bob.getX(), bob.getY(), theRocks.get(i).getX(), theRocks.get(i).getY()) < 30)
-      {
-        theRocks.remove(i);
-      }
     }
-    for(int i = 0; i < boo.size(); i++)
+    for(int j = 0; j < boo.size(); j++)
     {
-      boo.get(i).show();
-      boo.get(i).move();
-      // if(dist(boo.get(i).getX(), boo.get(i).getY(), theRocks.get(i).getX(), theRocks.get(i).getY()) < 20)
-      // {
-      //   boo.remove(i);
-      // }
+      boo.get(j).show();
+      boo.get(j).move();
     }
     bob.show();
     bob.move();
+    for(int i = 0; i < theRocks.size(); i++)
+    {
+      for(int j = 0; j < boo.size(); j++)
+      {
+        if(dist(boo.get(j).getX(), boo.get(j).getY(), theRocks.get(i).getX(), theRocks.get(i).getY()) < 30)
+        {
+          boo.remove(j);
+          theRocks.remove(i);        
+          break;
+        }
+        else if(dist(bob.getX(), bob.getY(), theRocks.get(i).getX(), theRocks.get(i).getY()) < 30)
+          gameOver = true;
+      }
+    }
   }
-
 }
 class SpaceShip extends Floater  
 {   
@@ -203,12 +216,12 @@ public void keyPressed()
 }
 public void mousePressed()
 {
-  for(int i = 0; i < 30; i++)
+  for(int j = 0; j < 30; j++)
   {
     boo.add(new Bullets());  
-    if(boo.get(i).getX() < 0 || boo.get(i).getY() < 0 || boo.get(i).getX() > 1200 || boo.get(i).getY() > 650)
+    if(boo.get(j).getX() < 0 || boo.get(j).getY() < 0 || boo.get(j).getX() > 1200 || boo.get(j).getY() > 650)
     {
-      boo.remove(i);
+      boo.remove(j);
     } 
   }
 } 
@@ -295,25 +308,25 @@ class Bullets extends Floater
     corners = 6;
     xCorners = new int[corners];
     yCorners = new int[corners];
-    xCorners[0] = 18;
+    xCorners[0] = 33;
     yCorners[0] = 0;
-    xCorners[1] = 17;
+    xCorners[1] = 32;
     yCorners[1] = 1;
-    xCorners[2] = 3;
+    xCorners[2] = 18;
     yCorners[2] = 1;
-    xCorners[3] = 2;
+    xCorners[3] = 17;
     yCorners[3] = 0;
-    xCorners[4] = 3;
+    xCorners[4] = 18;
     yCorners[4] = -1;
-    xCorners[5] = 17;
+    xCorners[5] = 32;
     yCorners[5] = -1;
     myPointDirection = bob.getPointDirection();
     double dRadians = myPointDirection*(Math.PI/180);
     myColor = color(255,0,0);
     myCenterX = bob.getX();
     myCenterY = bob.getY();
-    myDirectionX = 5 * Math.cos(dRadians) + bob.getDirectionX();
-    myDirectionY = 5 * Math.sin(dRadians) + bob.getDirectionY();
+    myDirectionX = 10 * Math.cos(dRadians) + bob.getDirectionX();
+    myDirectionY = 10 * Math.sin(dRadians) + bob.getDirectionY();
   }
   public void setX(int x){myCenterX = x;}
   public int getX(){return (int)myCenterX;}   
