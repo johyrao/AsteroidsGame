@@ -3,7 +3,7 @@ Star[] rob = new Star[400];
 PFont myFont;
 ArrayList <Asteroid> theRocks = new ArrayList <Asteroid>();
 ArrayList <Bullets> boo = new ArrayList <Bullets>();
-boolean gameOver = false;
+int screenNum = 0;
 public void setup() 
 {
   size(1200,650);
@@ -11,7 +11,7 @@ public void setup()
   {
     rob[i] = new Star();  
   }
-  for(int i =0; i < 30; i++)
+  for(int i =0; i < 40; i++)
   {
     theRocks.add(new Asteroid());
   }
@@ -19,7 +19,7 @@ public void setup()
 }
 public void draw() 
 {
-  if(theRocks.size() == 0)
+  if(screenNum == 1)
   {
     background(0);
     textAlign(CENTER, CENTER);
@@ -27,17 +27,22 @@ public void draw()
     textFont(myFont);
     text("You Win", 600, 300);
   }
-  else if(gameOver == true)
+  else if(screenNum == 2)
   {
     background(0);
     textAlign(CENTER, CENTER);
     fill(255,255,0);
     textFont(myFont);
-    text("You Lose", 600, 300);  
+    text("You Lose", 600, 300);
+    if(key == 'r')
+      screenNum = 0; 
   }
-  else
+  else if(screenNum == 0)
   {
-    background(0);      
+    background(0);
+    fill(255,0,0);
+    noStroke();
+    ellipse(20,20,30,30);      
     for(int i = 0; i < rob.length; i++)
     {
       rob[i].draw();
@@ -58,14 +63,16 @@ public void draw()
     {
       for(int j = 0; j < boo.size(); j++)
       {
-        if(dist(boo.get(j).getX(), boo.get(j).getY(), theRocks.get(i).getX(), theRocks.get(i).getY()) < 30)
+        if(dist(boo.get(j).getX(), boo.get(j).getY(), theRocks.get(i).getX(), theRocks.get(i).getY()) < 25)
         {
           boo.remove(j);
-          theRocks.remove(i);        
+          theRocks.remove(i);
+          if(theRocks.size() == 0)
+            screenNum = 1;        
           break;
         }
         else if(dist(bob.getX(), bob.getY(), theRocks.get(i).getX(), theRocks.get(i).getY()) < 30)
-          gameOver = true;
+          screenNum = 2;
       }
     }
   }
@@ -199,11 +206,11 @@ public void keyPressed()
   }
   if(key == 'a')
   {
-    bob.rotate(-5);
+    bob.rotate(-8);
   }
   if(key == 'd')
   {
-    bob.rotate(5);
+    bob.rotate(8);
   }
   if(key == 'h')
   {
